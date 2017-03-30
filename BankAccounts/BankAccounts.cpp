@@ -127,7 +127,6 @@ bool CheckingAccount::inputWithdraw(float Withdraw)
 		Balance = Balance - 5;
 
 	return true;
-
 }
 
 void CheckingAccount::inputDeposit(float Deposit)
@@ -159,7 +158,7 @@ class CDAccount:public BankAccount
 		int Years = 0;
 		CDAccount();
 		bool inputWithdraw(float Withdraw);
-		void inputEarlyWithdraw(float Withdraw);
+		bool inputEarlyWithdraw(float Withdraw);
 		void inputDeposit(float Deposit);
 		void InterestCalculation();
 		void Display();
@@ -182,14 +181,16 @@ bool CDAccount::inputWithdraw(float Withdraw)
 	return true;
 }
 
-void CDAccount::inputEarlyWithdraw(float Withdraw)
+bool CDAccount::inputEarlyWithdraw(float Withdraw)
 {
+	if (Withdraw > Balance)
+		return false;
+
 	if(Years != 0)
 		Withdraw = Withdraw * 1.10;
-
-	if (Withdraw > Balance)
-		return;
+	
 	Balance -= Withdraw;
+	return true;
 }
 
 void CDAccount::inputDeposit(float Deposit)
